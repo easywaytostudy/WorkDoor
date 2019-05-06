@@ -1,0 +1,70 @@
+{% include 'header.html' %}
+
+<div class="jp_tittle_main_wrapper">
+	<div class="jp_tittle_img_overlay"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="jp_tittle_heading_wrapper">
+					<div class="jp_tittle_heading">
+						<center><h2>Login</h2></center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="login_section">
+	<div class="login_form_wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h1>LOGIN TO YOUR ACCOUNT</h1>
+					<form method="post" action="login">
+					{% csrf_token %}
+						<div class="login_wrapper">
+						<div class="formsix-pos">
+							<div class="form-group i-email">
+								<input type="text" class="form-control" name="username" required="" id="username1" placeholder="username">
+							</div>
+						</div>
+						<div class="formsix-e">
+							<div class="form-group i-password">
+								<input type="password" class="form-control" name="password" required="" id="password2" placeholder="Password *">
+							</div>
+						</div>
+<!--						<div class="formsix-e">-->
+<!--							<div class="form-group">-->
+<!--								<select class="form-control" name="type" required >-->
+<!--									<option selected="True" disabled>Who you are</option>-->
+<!--									<option value="seeker">Job Seeker</option>-->
+<!--									<option value="company">Company Officials</option>-->
+<!--								</select>-->
+<!--							</div>-->
+<!--						</div>-->
+						<div class="login_remember_box">
+							<label class="control control--checkbox">Remember me
+								<input type="checkbox" required>
+								<span class="control__indicator"></span>
+							</label>
+							<a href="#" class="forget_password">Forgot Password</a>
+						</div>
+						<div class="login_btn_wrapper">
+
+							<input class="login_btn_wrapper register_btn_wrapper login_wrapper btn btn-primary login_btn" type="submit" name="Login" >
+						
+						</div>
+						<div class="login_message">
+							<p>Don’t have an account ? <a href="/register"> Register Now </a> </p>
+						</div>
+					</div>
+					</form>
+					<p>In case you are using a public/shared computer we recommend that you logout to prevent any un-authorized access to your account</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'footer.html' %}

@@ -1,0 +1,137 @@
+{% load static %}
+{% include 'header.html' %}
+
+ <div class="jp_tittle_main_wrapper">
+        <div class="jp_tittle_img_overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_tittle_heading_wrapper">
+                        <div class="jp_tittle_heading">
+                        <center><h2>Edit Profiles</h2></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+								<div class="register_section">
+        <!-- register_form_wrapper -->
+        <div class="register_tab_wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div role="tabpanel">
+
+                            <!-- Nav tabs -->
+                            <ul id="tabOne" class="nav register-tabs">
+                                <li class="active"><a href="#contentOne-1" data-toggle="tab">personal account <br> <span>i am looking for a job</span></a>
+                                </li>
+                                <!-- <li><a href="#contentOne-2" data-toggle="tab">company account <br> <span>We are hiring Employees</span></a>
+                                </li> -->
+                            </ul>
+
+
+								<div class="tab-content">
+                                <div class="tab-pane fade in active register_left_form" id="contentOne-1">
+									
+                                    <form method="post" action="user_register" >
+                                    {% csrf_token %}
+                                        <div class="jp_regiter_top_heading">
+                                            <p>Fields with * are mandetory </p>
+                                        </div>
+                                        <div class="row">
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="user_name" value="{{data.user}}" placeholder="Username*" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="text" name="fathername" value="{{data.fathername}}" placeholder="Father Name*" required>
+                                            </div>
+
+
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                                                <input type="email" name="email" value="{{user.email}}" placeholder="Email*" required>
+                                            </div>
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                                                <input type="password" name="password" value="" placeholder=" password*" required disabled>
+                                            </div>
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                                <input type="date" name="date" value="{{data.date}}" placeholder=" Date*" required>
+                                               
+                                            </div>
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                                                <input type="text" name="location" value="{{data.location}}" placeholder="current location*" required>
+
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                                                <input type="text" name="zipcode" value="{{data.zipcode}}" placeholder="Zip Code*" required>
+
+                                            </div>
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <select name="gender" placeholder="Gender*"  required>
+                                                    <option selected="True" disabled>please select gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                </select>
+                                            </div>
+                                            <!--Form Group-->
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12">
+
+                                                <input type="number" name="phone" value="{{data.phone}}" placeholder="Phone Number*" maxlength="10" minlength="10" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="text" name="qualification" placeholder="Highest Qualification*" value="{{data.qualification}}" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="text" name="experience" placeholder="Experience if any in years*" value="{{data.experience}}" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="text" name="skills" value="{{data.skills}}" placeholder="Skills*" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="text" name="certification" placeholder="Certification  if any otherwise write None*" value="{{data.certification}}" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="text" name="language" placeholder="Spoken Languages*"  value="{{data.language}}" required>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="file" name="photo" value="{{data.photo}}" required>
+                                                <p>Please Upload Your Passport Size Photo Max Size:300kb*</p>
+                                            </div>
+                                            <div class="form-group col-md-6 col-sm-6 col-xs-12 custom_input">
+                                                <input type="file" name="resume" value="{{data.resume}}" required>
+                                                <p>Please Upload Your Updated Resume Max Size:300kb*</p>
+                                            </div>
+
+                                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="check-box text-center">
+                                                    <input type="checkbox" name="shipping-option" id="account-option_1" required> &ensp;
+                                                    <label for="account-option_1">I agreed to the <a href="#" class="check_box_anchr">Terms and Conditions</a> governing the use of jobportal</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="login_btn_wrapper">
+                                            <input class="login_btn_wrapper register_btn_wrapper login_wrapper btn btn-primary login_btn" type="submit" value="Update">
+                                        </div>
+                                     
+                                    </form>
+                                </div>
+
+</div></div></div></div></div></div></div>
+
+
+
+
+
+{% include 'footer.html' %}
+    
