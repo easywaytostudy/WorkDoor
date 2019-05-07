@@ -304,3 +304,7 @@ def contact(request):
 def logout(request):
     logout1(request)
     return redirect('login')
+
+
+def questions(request):
+    return render(request, 'questions.html')

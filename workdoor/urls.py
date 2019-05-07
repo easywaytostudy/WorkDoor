@@ -41,6 +41,7 @@ urlpatterns = [
     path('selectcandi', views.select_candidate, name='selectcandi'),
     path('candinoti', views.candidate_notification, name='candinoti'),
     path('jobpost', views.job_post, name='jobpost'),
+    path('questions', views.questions, name='questions'),
     
 
 
