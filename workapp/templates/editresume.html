@@ -42,6 +42,7 @@
                                         </div>
                                         <div class="row">
                                             <!--Form Group-->
+                                            <input type="hidden" name="id" value="{{user.id}}" disabled>
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
                                                 <input type="text" name="user_name" value="{{data.user}}" placeholder="Username*" required>
                                             </div>
@@ -58,7 +59,7 @@
                                             <!--Form Group-->
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">
 
-                                                <input type="password" name="password" value="" placeholder=" password*" required disabled>
+                                                <input type="password" name="password" value="{{user.password}}" placeholder=" password*" required disabled>
                                             </div>
                                             <!--Form Group-->
                                             <div class="form-group col-md-6 col-sm-6 col-xs-12">

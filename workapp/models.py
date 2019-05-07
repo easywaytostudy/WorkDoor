@@ -6,10 +6,11 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+
 class Contact(models.Model):
     name = models.CharField(max_length=200, null=True)
-    email = models.TextField(null=True)
-    subject = models.TextField(max_length=200, null=True)
+    email = models.EmailField(null=True)
+    subject = models.CharField(max_length=200, null=True)
     message = models.TextField(null=True)
 
     def __unicode__(self):
@@ -21,9 +22,10 @@ class Contact(models.Model):
 
 
 class UserRegister(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=True)
     fathername = models.CharField(max_length=100, null=True)
-    date = models.CharField(max_length=200, null=True)
+    date = models.DateField(max_length=200, null=True)
     location = models.CharField(max_length=200, null=True)
     zipcode = models.IntegerField(null=True)
     gender = models.CharField(max_length=200, null=True)
@@ -60,12 +62,11 @@ class CompanyRegister(models.Model):
         verbose_name = "Company Registration"
 
 
-
-class Jobnotification(models.Model):
+class JobNotifications(models.Model):
     name = models.CharField(max_length=200, null=True)
-    email = models.TextField(null=True)
-    job_skills = models.TextField(max_length=200, null=True)
-    job_location = models.TextField(null=True)
+    email = models.EmailField(null=True)
+    job_skills = models.CharField(max_length=200, null=True)
+    job_location = models.CharField(max_length=200, null=True)
 
     def __unicode__(self):
         return self.name
@@ -74,9 +75,10 @@ class Jobnotification(models.Model):
         db_table = "Job_notification"
         verbose_name = "Job notification"
 
-class Candidate_notification(models.Model):
+
+class CandidateNotifications(models.Model):
     name = models.CharField(max_length=200, null=True)
-    email = models.CharField(max_length=200, null=True)
+    email = models.EmailField(max_length=200, null=True)
     candidate_skills = models.CharField(max_length=200, null=True)
     candidate_location = models.CharField(max_length=200, null=True)
 
@@ -88,7 +90,7 @@ class Candidate_notification(models.Model):
         verbose_name = "Candidate notification"
 
 
-class Job_Post(models.Model):
+class JobPost(models.Model):
     company_name = models.CharField(max_length=200, null=True)
     post_name = models.CharField(max_length=100, null=True)
     experience = models.CharField(max_length=200, null=True)

@@ -102,8 +102,10 @@ ul{
     float: left;
     width: auto;
 }
-.gc_logo img{
-	display:inline-block;
+.gc_logo img {
+    display: inline-block;
+    width: 167px;
+    margin-top: -31px;
 }
 .header-area{
 	float:left;
