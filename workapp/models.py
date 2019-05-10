@@ -24,6 +24,8 @@ class Contact(models.Model):
 class UserRegister(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=True)
+    first_name = models.CharField(max_length=100, null=True)
+    last_name = models.CharField(max_length=100, null=True)
     fathername = models.CharField(max_length=100, null=True)
     date = models.DateField(max_length=200, null=True)
     location = models.CharField(max_length=200, null=True)
@@ -35,7 +37,7 @@ class UserRegister(models.Model):
     skills = models.CharField(max_length=100, null=True)
     certification = models.CharField(max_length=100, null=True)
     language = models.CharField(max_length=200, null=True)
-    photo  = models.FileField(upload_to='image/userphoto', null=True, blank=True, help_text="Upload only .png, .jpg & .jpeg image extension.") 
+    photo  = models.ImageField(upload_to='image/userphoto', null=True, blank=True, help_text="Upload only .png, .jpg & .jpeg image extension.") 
     resume = models.FileField(upload_to='image/userresume', null=True, blank=True, help_text="Upload only .txt, .pdf & .word file extension.")
 
     def __unicode__(self):
@@ -47,6 +49,7 @@ class UserRegister(models.Model):
 
 
 class CompanyRegister(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=True)
     company_name = models.CharField(max_length=200, null=True)
     jobpost = models.CharField(max_length=200, null=True)
@@ -63,6 +66,7 @@ class CompanyRegister(models.Model):
 
 
 class JobNotifications(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)
     email = models.EmailField(null=True)
     job_skills = models.CharField(max_length=200, null=True)
@@ -77,6 +81,7 @@ class JobNotifications(models.Model):
 
 
 class CandidateNotifications(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)
     email = models.EmailField(max_length=200, null=True)
     candidate_skills = models.CharField(max_length=200, null=True)
@@ -91,12 +96,14 @@ class CandidateNotifications(models.Model):
 
 
 class JobPost(models.Model):
+    id = models.AutoField(primary_key=True)
     company_name = models.CharField(max_length=200, null=True)
     post_name = models.CharField(max_length=100, null=True)
     experience = models.CharField(max_length=200, null=True)
     package = models.CharField(max_length=200, null=True)
     location = models.CharField(max_length=200, null=True)
     skills = models.CharField(max_length=200, null=True)
+    registered = models.CharField(max_length=100, null=True, default="False")
 
     def __unicode__(self):
         return self.company_name

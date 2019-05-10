@@ -265,19 +265,12 @@
                             <div class="jp_hiring_heading_wrapper jp_job_post_heading_wrapper">
                                 <h2>Recent Jobs</h2><br><br>
                             </div>
-                            <!-- <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#best" aria-controls="best" role="tab" data-toggle="tab">Featured</a></li>
-                                <li role="presentation"><a href="#hot" aria-controls="hot" role="tab" data-toggle="tab">Remotely</a></li>
-                                <li role="presentation"><a href="#trand" aria-controls="trand" role="tab" data-toggle="tab">Part Time</a></li>
-                                <li role="presentation"><a href="#best" aria-controls="best" role="tab" data-toggle="tab">Full Time </a></li>
-                            </ul> -->
-                        </div>
+                        </div>  
                         <div align="center">
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade in active" id="best">
-                                    <div class="ss_featured_products">
-                                        <div class="owl-carousel owl-theme">
-                                            {% for i in data %}
+                                    {% for i in data %}
+                                    <div class="ss_featured_products">                                     
                                             <div class="jp_job_post_main_wrapper_cont">
                                                 <div class="jp_job_post_main_wrapper">
                                                     <div class="row">
@@ -304,22 +297,24 @@
                                                                 <ul>
                                                                     <li></li>
 
-                                                                    <li><a href="#">Part Time</a></li>
+                                                                    <!-- <li><a href="#">Part Time</a></li> -->
 
                                                                     <li><a href="#">Apply</a></li>
                                                                 </ul>
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </div>
                                                 <div class="jp_job_post_keyword_wrapper">
                                                     <ul>
                                                         <li><i class="fa fa-tags"></i>Keywords :</li>
                                                         <li><a href="#">{{i.skills}}</a></li>
+                                                        </ul>
 
                                                 </div>
                                             </div>
-                                            {% endfor %}
+                                            </div></div>{% endfor %}
                                             <!-- <div class="jp_job_post_main_wrapper_cont jp_job_post_main_wrapper_cont2">
                                                 <div class="jp_job_post_main_wrapper">
                                                     <div class="row">
@@ -1500,9 +1495,9 @@
                                     <div class="jp_regis_left_side_box">
                                         <img src="{% static 'images/content/regis_icon.png' %}" alt="icon" />
                                         <h4>I’m an EMPLOYER</h4>
-                                        <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
+                                        <p>Signed in as company representer able to post new<br> job offers, search for candidate...</p>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS COMPANY</a></li>
+                                            <li><a href="login"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS COMPANY</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1510,10 +1505,10 @@
                                     <div class="jp_regis_right_img_overlay"></div>
                                     <div class="jp_regis_right_side_box">
                                         <img src="{% static 'images/content/regis_icon2.png' %}" alt="icon" />
-                                        <h4>I’m an candidate</h4>
-                                        <p>Signed in companies are able to post new<br> job offers, searching for candidate...</p>
+                                        <h4>I’m an Job Seeker</h4>
+                                        <p>Signed in make you able to check <br>new Job post, new job offers</p>
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS COMPANY</a></li>
+                                            <li><a href="login"><i class="fa fa-plus-circle"></i> &nbsp;REGISTER AS SEEKER</a></li>
                                         </ul>
                                     </div>
                                     <div class="jp_regis_center_tag_wrapper">

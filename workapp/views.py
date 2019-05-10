@@ -18,11 +18,35 @@ def about(request):
 
 
 def candidate(request):
-    return render(request, 'candidate_listing.html')
+    data1 = UserRegister.objects.all()
+    if (request.method=='POST'):
+        skills1 = request.POST.get('skills')
+        location1 = request.POST.get('location')
+        experience1 = request.POST.get('exp')
+        if (skills1 and location1 and experience1):
+            data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
+            print('1111111111111111111111111111111111')
+            return render(request, 'candidate_listing.html', {'data':data})
+        
+        elif (skills1 and location1):
+            data = UserRegister.objects.filter(skills=skills1, location=location1)
+            print(data)
+            print('22222222222222222222222222222222222')
+            return render(request, 'candidate_listing.html', {'data':data})
+        
+        elif (skills):
+            data = UserRegister.objects.filter(skills=skills1)
+            print('333333333333333333333333333333333333')
+            return render(request, 'candidate_listing.html', {'data':data})
+        # else:
+            # return render(request, 'candidate_listing.html', {'data':data})
+
+    return render(request, 'candidate_listing.html', {'data1':data1})
 
 
 def listing(request):
-    return render(request, 'listing_right.html')
+    data = JobPost.objects.all()
+    return render(request, 'listing_right.html', {'data':data})
 
 
 def company_dashboard(request):
@@ -30,7 +54,28 @@ def company_dashboard(request):
 
 
 def candidate_search(request):
-    return render(request, 'candisearch.html')
+    data = UserRegister.objects.all()
+    if (request.method=='POST'):
+        skills1 = request.POST.get('skills')
+        location1 = request.POST.get('location')
+        experience1 = request.POST.get('exp')
+        if (skills1 and location1 and experience1):
+            data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
+            print('1111111111111111111111111111111111')
+            return render(request, 'candisearch.html', {'data':data})
+        
+        elif (skills1 and location1):
+            data = UserRegister.objects.filter(skills=skills1, location=location1)
+            print(data)
+            print('22222222222222222222222222222222222')
+            return render(request, 'candisearch.html', {'data':data})
+        
+        elif (skills):
+            data = UserRegister.objects.filter(skills=skills1)
+            print('333333333333333333333333333333333333')
+            return render(request, 'candisearch.html', {'data':data})
+            
+    return render(request, 'candisearch.html', {'data':data})
 
 
 def select_candidate(request):
@@ -49,8 +94,8 @@ def candidate_notification(request):
         for i in data:
             if candidate_skills == i.skills :
                 print (i.skills)
-                email = i.email
-                print (email)
+                # email = i.email
+                print (i.email)
                 print(request.user.username)
                 print("...................................................")
 
@@ -87,12 +132,19 @@ def login(request):
     if (request.method == 'POST'):
         user_name = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=user_name, password=password)
-        print(user)
+        user1 = authenticate(username=user_name, password=password)
 
-        if user is not None:
-            login1(request, user)
-            return render(request, 'dasboard.html', {'username': user_name})
+        print(user1)
+
+        if user1 is not None:
+            login1(request, user1)
+
+            if CompanyRegister.objects.filter(user=user1):
+                print('000000000000000000000000000')
+                return render(request, 'companydashboard.html', {'username': user_name})
+            elif UserRegister.objects.filter(user=user1):
+                print('11111111111111111111111111')
+                return render(request, 'dasboard.html', {'username': user_name})
     else:
         return render(request, 'login.html')
 
@@ -113,27 +165,27 @@ def job_notification(request):
     if(request.method == 'POST'):
         name = request.POST.get('name')
         email = request.POST.get('email')
-        job_skills = request.POST.get('skills')
-        job_location = request.POST.get('joblocation')
+        job_skills = request.POST.get('job_skills')
+        job_location = request.POST.get('job_location')
         todo = JobNotifications(name=name, email=email, job_skills=job_skills, job_location=job_location)
         todo.save()
         data = JobPost.objects.all()
         print(job_skills)
         # print(i.skills)
         for i in data:
-            print(i.skills)
+            # print(i.skills)
             if job_skills == i.skills:
                 print (i.skills)
-                email = i.email
-                print (email)
-                print(request.JobPost.company_name)
+                # email = i.email
+                print(email)
+                print(i.company_name)
                 print("...................................................")
-                # connection = smtplib.SMTP('smtp.gmail.com',587)
-                # connection.ehlo()
-                # connection.starttls()
-                # connection.login('workdoorofficial@gmail.com','workdoor123')
-                # connection.sendmail('workdoorofficial@gmail.com', email,
-                #             ("Subject: Job_notification"+"\n\n"+"New Job Availbale \n"+ str(company_name)+"\n Package "+str(package)+"\n Location "+str(location)+"\n you can check it out on our website "))
+                connection = smtplib.SMTP('smtp.gmail.com',587)
+                connection.ehlo()
+                connection.starttls()
+                connection.login('workdoorofficial@gmail.com','workdoor123')
+                connection.sendmail('workdoorofficial@gmail.com', email,
+                            ("Subject: Job_notification"+"\n\n"+"New Job Availbale \n"+ str(i.company_name)+"\n Package "+str(i.package)+"\n Location "+str(i.location)+"\n you can check it out on our website "))
 
         return render(request, 'dasboard.html')
     else:
@@ -141,51 +193,78 @@ def job_notification(request):
 
 
 def job_search(request):
-    return render(request, 'jobsearch.html')
+    data1 = JobPost.objects.all()
+
+    if (request.method=='POST'):
+        skills1 = request.POST.get('skills')
+        location1 = request.POST.get('location')
+        experience1 = request.POST.get('exp')
+        if (skills1 and location1 and experience1):
+            data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
+            print('1111111111111111111111111111111111')
+            return render(request, 'jobsearch.html', {'data':data})
+        
+        elif (skills1 and location1):
+            data = JobPost.objects.filter(skills=skills1, location=location1)
+            print(data)
+            print('22222222222222222222222222222222222')
+            return render(request, 'jobsearch.html', {'data':data})
+        
+        elif (skills):
+            data = JobPost.objects.filter(skills=skills1)
+            print('333333333333333333333333333333333333')
+            return render(request, 'jobsearch.html', {'data':data})
+
+    return render(request, 'jobsearch.html', {'data':data1})
 
 
 def edit_profile(request):
-    data = UserRegister.objects.get(user=request.user.id)
-    id1 = request.POST.get('id')
-    username = request.POST.get('user_name')
-    fathername = request.POST.get('fathername')
-    email = request.POST.get('email')
-    password = request.POST.get('password')
-    date = request.POST.get('date')
-    location = request.POST.get('location')
-    zipcode = request.POST.get('zipcode')
-    gender = request.POST.get('gender')
-    phone = request.POST.get('phone')
-    qualification = request.POST.get('qualification')
-    experience = request.POST.get('experience')
-    skills = request.POST.get('skills')
-    certification = request.POST.get('certification')
-    language = request.POST.get('language')
-    photo = request.POST.get('photo')
-    resume = request.POST.get('resume')
 
-    user1 = User.objects.create_user(username, email, password)
+    data  = UserRegister.objects.get(user=request.user.id)
+    
+    if (request.method =='POST'):
+        id1 = request.POST.get('id')
+        username = request.POST.get('user_name')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        fathername = request.POST.get('fathername')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        date = request.POST.get('date')
+        location = request.POST.get('location')
+        zipcode = request.POST.get('zipcode')
+        gender = request.POST.get('gender')
+        phone = request.POST.get('phone')
+        qualification = request.POST.get('qualification')
+        experience = request.POST.get('experience')
+        skills = request.POST.get('skills')
+        certification = request.POST.get('certification')
+        language = request.POST.get('language')
+        photo = request.POST.get('photo')
+        resume = request.POST.get('resume')
 
-    data = UserRegister(
-        id=id1,
-        user1=user1,
-        fathername=fathername,
-        date=date,
-        location=location,
-        zipcode=zipcode,
-        gender=gender,
-        phone=phone,
-        qualification=qualification,
-        experience=experience,
-        skills=skills,
-        certification=certification,
-        language=language,
-        photo=photo,
-        resume=resume
+        # user = User.objects.create_user(username, email, password)
+        data1 = UserRegister(
+            id=id1,
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            fathername=fathername,
+            date=date,
+            location=location,
+            zipcode=zipcode,
+            gender=gender,
+            phone=phone,
+            qualification=qualification,
+            experience=experience,
+            skills=skills,
+            certification=certification,
+            language=language,
+            photo=photo,
+            resume=resume
 
-    )
-    data.save()
-
+        )
+        data1.save()
 
     return render(request, 'editresume.html', {'data': data})
 
@@ -198,6 +277,8 @@ def resume(request):
 def user_register(request):
     if(request.method == 'POST'):
         username = request.POST.get('user_name')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
         fathername = request.POST.get('fathername')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -218,6 +299,8 @@ def user_register(request):
 
         data = UserRegister(
             user=user,
+            first_name=first_name,
+            last_name=last_name,
             fathername=fathername,
             date=date,
             location=location,
@@ -308,3 +391,10 @@ def logout(request):
 
 def questions(request):
     return render(request, 'questions.html')
+
+
+def editjob(request):
+    data = JobPost.objects.all()
+    return render(request, 'editjob.html', {'data':data})
+
+

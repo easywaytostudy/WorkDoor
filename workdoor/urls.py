@@ -42,6 +42,8 @@ urlpatterns = [
     path('candinoti', views.candidate_notification, name='candinoti'),
     path('jobpost', views.job_post, name='jobpost'),
     path('questions', views.questions, name='questions'),
+    path('editjob', views.editjob, name='editjob'),
+    
     
 
 
