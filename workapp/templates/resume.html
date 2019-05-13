@@ -27,7 +27,11 @@
 					<div class="jp_cp_left_side_wrapper">
 						<div class="jp_cp_left_pro_wallpaper">
 							{% if user.is_authenticated %}
-                            <img src="{{data.photo}}" alt="profile_img">
+                            {% if data.photo.url %}
+                                <img src="{{data.photo.url}}" alt="profile_img">
+                            {% else %}
+                                <img src="{{data.photo}}" alt="profile_img">
+                            {% endif %}
 							<h2>{{data.user}}</h2>
 							<p>{{data.skills}}</p>
 

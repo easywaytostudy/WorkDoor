@@ -8,6 +8,8 @@ import smtplib, ssl
 from django.contrib import messages
 
 # Create your views here.
+
+
 def home(request):
     data1 = JobPost.objects.all()
 
@@ -18,18 +20,14 @@ def home(request):
 
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            print('1111111111111111111111111111111111')
             return render(request, 'index.html', {'data':data})
         
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
-            print(data)
-            print('22222222222222222222222222222222222')
             return render(request, 'index.html', {'data':data})
         
-        elif (skills):
+        elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
-            print('333333333333333333333333333333333333')
             return render(request, 'index.html', {'data':data})
 
     return render(request, 'index.html', {'data':data1})
@@ -41,25 +39,18 @@ def about(request):
 
 def candidate(request):
     data1 = UserRegister.objects.all()
-
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
         experience1 = request.POST.get('exp')
         if (skills1 and location1 and experience1):
             data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
-            print('1111111111111111111111111111111111')
             return render(request, 'candidate_listing.html', {'data':data})
-        
         elif (skills1 and location1):
             data = UserRegister.objects.filter(skills=skills1, location=location1)
-            print(data)
-            print('22222222222222222222222222222222222')
             return render(request, 'candidate_listing.html', {'data':data})
-        
-        elif (skills):
+        elif (skills1):
             data = UserRegister.objects.filter(skills=skills1)
-            print('333333333333333333333333333333333333')
             return render(request, 'candidate_listing.html', {'data':data})
         # else:
             # return render(request, 'candidate_listing.html', {'data':data})
@@ -77,18 +68,14 @@ def listing(request):
 
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            print('1111111111111111111111111111111111')
             return render(request, 'listing_right.html', {'data':data})
         
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
-            print(data)
-            print('22222222222222222222222222222222222')
             return render(request, 'listing_right.html', {'data':data})
         
-        elif (skills):
+        elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
-            print('333333333333333333333333333333333333')
             return render(request, 'listing_right.html', {'data':data})
 
     return render(request, 'listing_right.html', {'data':data1})
@@ -106,18 +93,15 @@ def candidate_search(request):
         experience1 = request.POST.get('exp')
         if (skills1 and location1 and experience1):
             data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
-            print('1111111111111111111111111111111111')
             return render(request, 'candisearch.html', {'data':data})
         
         elif (skills1 and location1):
             data = UserRegister.objects.filter(skills=skills1, location=location1)
             print(data)
-            print('22222222222222222222222222222222222')
             return render(request, 'candisearch.html', {'data':data})
         
-        elif (skills):
+        elif (skills1):
             data = UserRegister.objects.filter(skills=skills1)
-            print('333333333333333333333333333333333333')
             return render(request, 'candisearch.html', {'data':data})
             
     return render(request, 'candisearch.html', {'data':data1})
@@ -142,20 +126,10 @@ def candidate_notification(request):
                 # email = i.email
                 print (i.email)
                 print(request.user.username)
-                print("...................................................")
-
-                # connection = smtplib.SMTP('smtp.gmail.com',587)
-                # connection.ehlo()
-                # connection.starttls()
-                # connection.login('workdoorofficial@gmail.com','workdoor123')
-                # connection.sendmail('workdoorofficial@gmail.com', email,
-                #             ("Subject: Candidate_notification"+"\n\n"+"New Candiate Availbale "+ str(user)+" you can check it out on our website "))
-
-                # messages.add_message(request, messages.INFO, 'Thank you for using notification service. You will be notified soon.')
-
         return render(request, 'companydashboard.html')
     else:
         return render(request, 'candinoti.html')
+
 
 def job_post(request):
     if(request.method == 'POST'):
@@ -179,16 +153,12 @@ def login(request):
         password = request.POST.get('password')
         user1 = authenticate(username=user_name, password=password)
 
-        print(user1)
-
         if user1 is not None:
             login1(request, user1)
 
             if CompanyRegister.objects.filter(user=user1):
-                print('000000000000000000000000000')
                 return render(request, 'companydashboard.html', {'username': user_name})
             elif UserRegister.objects.filter(user=user1):
-                print('11111111111111111111111111')
                 return render(request, 'dasboard.html', {'username': user_name})
     else:
         return render(request, 'login.html')
@@ -215,16 +185,8 @@ def job_notification(request):
         todo = JobNotifications(name=name, email=email, job_skills=job_skills, job_location=job_location)
         todo.save()
         data = JobPost.objects.all()
-        print(job_skills)
-        # print(i.skills)
         for i in data:
-            # print(i.skills)
             if job_skills == i.skills:
-                print (i.skills)
-                # email = i.email
-                print(email)
-                print(i.company_name)
-                print("...................................................")
                 connection = smtplib.SMTP('smtp.gmail.com',587)
                 connection.ehlo()
                 connection.starttls()
@@ -246,29 +208,22 @@ def job_search(request):
         experience1 = request.POST.get('exp')
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            print('1111111111111111111111111111111111')
             return render(request, 'jobsearch.html', {'data':data})
         
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
-            print(data)
-            print('22222222222222222222222222222222222')
             return render(request, 'jobsearch.html', {'data':data})
         
-        elif (skills):
+        elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
-            print('333333333333333333333333333333333333')
             return render(request, 'jobsearch.html', {'data':data})
 
     return render(request, 'jobsearch.html', {'data':data1})
 
 
 def edit_profile(request):
-
     data  = UserRegister.objects.get(user=request.user.id)
-    
     if (request.method =='POST'):
-    
         username = request.POST.get('user_name')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -286,13 +241,10 @@ def edit_profile(request):
         certification = request.POST.get('certification')
         language = request.POST.get('language')
         photo = request.POST.get('photo')
+        print(',,,,,,,,,,,,,,,,,,,,,,,,,', photo)
         resume = request.POST.get('resume')
-        # print('1111111111111111111111111111111111', id1)
-        print('1111111111111111111111111111111111', fathername, email)
-        # user = User.objects.create_user(username, email, password)
         data1 = UserRegister(
-            id=request.user.id,
-            # user=user,
+            pk=request.user.id,
             first_name=first_name,
             last_name=last_name,
             fathername=fathername,
@@ -308,16 +260,14 @@ def edit_profile(request):
             language=language,
             photo=photo,
             resume=resume
-
         )
-        print(data)
         data1.save()
 
     return render(request, 'editresume.html', {'data': data})
 
 
-def resume1(request):
-    data = UserRegister.objects.get(user=request.user.id)
+def resume1(request, id=None):
+    data = UserRegister.objects.get(pk=id)
     return render(request, 'resume.html', {'data': data})
 
 
@@ -343,7 +293,6 @@ def user_register(request):
         resume = request.POST.get('resume')
 
         user = User.objects.create_user(username, email, password)
-
         data = UserRegister(
             user=user,
             first_name=first_name,
@@ -361,7 +310,6 @@ def user_register(request):
             language=language,
             photo=photo,
             resume=resume
-
         )
         data.save()
         connection = smtplib.SMTP('smtp.gmail.com',587)

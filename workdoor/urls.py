@@ -16,6 +16,8 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from workapp import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,7 +37,7 @@ urlpatterns = [
     path('candidate/job_notification', views.job_notification, name='jobnoti'),
     path('candidate/applied_jobs', views.applied_jobs, name='appliedjobs'),
     path('candidate/jobsearch', views.job_search, name='jobsearch'),
-    path('candidate/resume', views.resume1, name='resume'),
+    path('candidate/resume/<int:id>', views.resume1, name='resume'),
     path('candidate/edit_profile', views.edit_profile, name='editprofile'),
 
     path('company/dashboard', views.company_dashboard, name='cdashboard'),
@@ -46,9 +48,4 @@ urlpatterns = [
     path('company/interview_questions', views.questions, name='questions'),
     path('company/edit_job', views.editjob, name='editjob'),
     path('company/your_post', views.yourpost, name='yourpost'),
-
-    
-    
-
-
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

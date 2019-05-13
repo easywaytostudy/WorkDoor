@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields.files import ImageField
+
 
 # Create your models here.
 
@@ -31,17 +33,17 @@ class UserRegister(models.Model):
     location = models.CharField(max_length=200, null=True)
     zipcode = models.IntegerField(null=True)
     gender = models.CharField(max_length=200, null=True)
-    phone = models.IntegerField(null=True)
+    phone = models.CharField(max_length=200, null=True)
     qualification = models.CharField(max_length=200, null=True)
     experience = models.CharField(max_length=100, null=True)
     skills = models.CharField(max_length=100, null=True)
     certification = models.CharField(max_length=100, null=True)
     language = models.CharField(max_length=200, null=True)
-    photo  = models.ImageField(upload_to='image/userphoto', null=True, blank=True, help_text="Upload only .png, .jpg & .jpeg image extension.") 
-    resume = models.FileField(upload_to='image/userresume', null=True, blank=True, help_text="Upload only .txt, .pdf & .word file extension.")
+    photo  = models.ImageField(upload_to='image/userphoto/', null=True, blank=False)
+    resume = models.FileField(upload_to='image/userresume/', null=True, blank=False)
 
     def __unicode__(self):
-        return self.user_name
+        return self.first_name
 
     class Meta:
         db_table = "user_registration"

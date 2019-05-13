@@ -82,15 +82,20 @@
                             <div class="jp_recent_resume_box_wrapper">
 
 								<div class="jp_recent_resume_img_wrapper">
-									<img src="{% static 'images/content/resume_img1.jpg' %}" alt="resume_img" / style="width: 93%;">
+                                    {% if data.photo.url %}
+                                        <img src="{{data.photo.url}}" style="width:80px; height:80px;">
+                                    {% else %}
+                                        <img src="{{data.photo}}" style="width:80px; height:80px;">
+                                    {% endif %}
+
 								</div>
 								<div class="jp_recent_resume_cont_wrapper">
-									<h3>{{i.first_name}} {{i.last_name}}</h3>
-									<p><i class="fa fa-folder-open-o"></i> <a href="#">{{i.skills}}</a></p>
+									<h3><a href="candidate/resume/{{i.id}}">{{i.first_name}} {{i.last_name}}</a></h3>
+									<p><i class="fa fa-folder-open-o"></i>{{i.skills}}</p>
 								</div>
 								<div class="jp_recent_resume_btn_wrapper">
 									<ul>
-										<li><a href="resume">View Profile</a></li>
+										<li><a href="candidate/resume/{{i.id}}">View Profile</a></li>
 									</ul>
 								</div>
 							</div>
