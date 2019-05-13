@@ -22,6 +22,74 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/responsive2.css' %}" />
     <!-- favicon links -->
     <link rel="shortcut icon" type="image/png" href="{% static 'images/header/favicon.ico' %}" />
+    <SCRIPT type="text/javascript">
+    function ValidateUpload() {
+        var fuData = document.getElementById('fileChooser');
+        var FileUploadPath = fuData.value;
+
+//To check if user upload any file
+        if (FileUploadPath == '') {
+            alert("Please upload an image");
+
+        } else {
+            var Extension = FileUploadPath.substring(
+                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+//The file uploaded is an image
+if ( Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
+
+// To Display
+                if (fuData.files && fuData.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(fuData.files[0]);
+                } } 
+
+//The file upload is NOT an image
+else {
+                alert("Photo only allows file types of PNG, JPG, JPEG. ");
+
+            }  } }
+
+</SCRIPT>
+
+<SCRIPT type="text/javascript">
+    function ValidateFileUpload() {
+        var fuData = document.getElementById('fileChooser');
+        var FileUploadPath = fuData.value;
+
+//To check if user upload any file
+        if (FileUploadPath == '') {
+            alert("Please upload your resume");
+
+        } else {
+            var Extension = FileUploadPath.substring(
+                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+//The file uploaded is an image
+if ( Extension == "pdf" || Extension == "docx" || Extension == "doc") {
+
+// To Display
+                if (fuData.files && fuData.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(fuData.files[0]);
+                } } 
+
+//The file upload is NOT an image
+else {
+                alert("Resume file only allows file types of PDF, DOC, DOCS. ");
+
+            }  } }
+
+</SCRIPT>
+
 </head>
 
 <body>
@@ -89,7 +157,7 @@
 									<li class="has-mega gc_main_navigation"><a href="/listing" class="gc_main_navigation">  Companies &nbsp;</a></li>
                                     <li class="has-mega gc_main_navigation"><a href="/about" class="gc_main_navigation">  About-Us &nbsp;</a></li>
                                     <li class="gc_main_navigation parent"><a href="/contact" class="gc_main_navigation">  Contact</a></li>
-                                    <li class="gc_main_navigation parent"><a href="/dashboard" class="gc_main_navigation">  Dashboard</a></li>
+                                    <li class="gc_main_navigation parent"><a href="/candidate/dashboard" class="gc_main_navigation">  Dashboard</a></li>
                                     {% else %}
                                     <li class="has-mega gc_main_navigation"><a href="/" class="gc_main_navigation">  Home&nbsp;</a></li>
                                     <li class="parent gc_main_navigation"><a href="/candidate" class="gc_main_navigation">  Candidates &nbsp;</a></li>
@@ -125,7 +193,7 @@
 														<li class=""><a href="listing">Companies</a></li>
                                                         <li class=""><a href="about">About-Us</a></li>
                                                         <li><a href="contact">Contact</a></li>
-                                                        <li><a href="dashboard">Dashboard</a></li>
+                                                        <li><a href="/candidate/dashboard">Dashboard</a></li>
 
                                                         <li><a href="logout"> Logout</a></li>
                                                         {% else %}

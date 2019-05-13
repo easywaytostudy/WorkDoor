@@ -30,19 +30,23 @@ urlpatterns = [
     path('user_register', views.user_register, name='user_register'),
     path('company_register', views.company_register, name='company_register'),
     path('listing', views.listing, name='listing'),
-    path('dashboard', views.user_dashboard, name='dashboard'),
-    path('jobnoti', views.job_notification, name='jobnoti'),
-    path('appliedjobs', views.applied_jobs, name='appliedjobs'),
-    path('jobsearch', views.job_search, name='jobsearch'),
-    path('resume', views.resume, name='resume'),
-    path('editprofile', views.edit_profile, name='editprofile'),
-    path('cdashboard', views.company_dashboard, name='cdashboard'),
-    path('candisearch', views.candidate_search, name='candisearch'),
-    path('selectcandi', views.select_candidate, name='selectcandi'),
-    path('candinoti', views.candidate_notification, name='candinoti'),
-    path('jobpost', views.job_post, name='jobpost'),
-    path('questions', views.questions, name='questions'),
-    path('editjob', views.editjob, name='editjob'),
+
+    path('candidate/dashboard', views.user_dashboard, name='dashboard'),
+    path('candidate/job_notification', views.job_notification, name='jobnoti'),
+    path('candidate/applied_jobs', views.applied_jobs, name='appliedjobs'),
+    path('candidate/jobsearch', views.job_search, name='jobsearch'),
+    path('candidate/resume', views.resume1, name='resume'),
+    path('candidate/edit_profile', views.edit_profile, name='editprofile'),
+
+    path('company/dashboard', views.company_dashboard, name='cdashboard'),
+    path('company/candidate_search', views.candidate_search, name='candisearch'),
+    path('company/select_candidate', views.select_candidate, name='selectcandi'),
+    path('company/candidate_notification', views.candidate_notification, name='candinoti'),
+    path('company/job_post', views.job_post, name='jobpost'),
+    path('company/interview_questions', views.questions, name='questions'),
+    path('company/edit_job', views.editjob, name='editjob'),
+    path('company/your_post', views.yourpost, name='yourpost'),
+
     
     
 

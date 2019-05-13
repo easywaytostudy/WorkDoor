@@ -9,8 +9,30 @@ from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    data = JobPost.objects.all()
-    return render(request, 'index.html', {'data':data})
+    data1 = JobPost.objects.all()
+
+    if (request.method=='POST'):
+        skills1 = request.POST.get('skills')
+        location1 = request.POST.get('location')
+        experience1 = request.POST.get('exp')
+
+        if (skills1 and location1 and experience1):
+            data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
+            print('1111111111111111111111111111111111')
+            return render(request, 'index.html', {'data':data})
+        
+        elif (skills1 and location1):
+            data = JobPost.objects.filter(skills=skills1, location=location1)
+            print(data)
+            print('22222222222222222222222222222222222')
+            return render(request, 'index.html', {'data':data})
+        
+        elif (skills):
+            data = JobPost.objects.filter(skills=skills1)
+            print('333333333333333333333333333333333333')
+            return render(request, 'index.html', {'data':data})
+
+    return render(request, 'index.html', {'data':data1})
 
 
 def about(request):
@@ -19,6 +41,7 @@ def about(request):
 
 def candidate(request):
     data1 = UserRegister.objects.all()
+
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
@@ -41,12 +64,34 @@ def candidate(request):
         # else:
             # return render(request, 'candidate_listing.html', {'data':data})
 
-    return render(request, 'candidate_listing.html', {'data1':data1})
+    return render(request, 'candidate_listing.html', {'data':data1})
 
 
 def listing(request):
-    data = JobPost.objects.all()
-    return render(request, 'listing_right.html', {'data':data})
+    data1 = JobPost.objects.all()
+
+    if (request.method=='POST'):
+        skills1 = request.POST.get('skills')
+        location1 = request.POST.get('location')
+        experience1 = request.POST.get('exp')
+
+        if (skills1 and location1 and experience1):
+            data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
+            print('1111111111111111111111111111111111')
+            return render(request, 'listing_right.html', {'data':data})
+        
+        elif (skills1 and location1):
+            data = JobPost.objects.filter(skills=skills1, location=location1)
+            print(data)
+            print('22222222222222222222222222222222222')
+            return render(request, 'listing_right.html', {'data':data})
+        
+        elif (skills):
+            data = JobPost.objects.filter(skills=skills1)
+            print('333333333333333333333333333333333333')
+            return render(request, 'listing_right.html', {'data':data})
+
+    return render(request, 'listing_right.html', {'data':data1})
 
 
 def company_dashboard(request):
@@ -54,7 +99,7 @@ def company_dashboard(request):
 
 
 def candidate_search(request):
-    data = UserRegister.objects.all()
+    data1 = UserRegister.objects.all()
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
@@ -75,7 +120,7 @@ def candidate_search(request):
             print('333333333333333333333333333333333333')
             return render(request, 'candisearch.html', {'data':data})
             
-    return render(request, 'candisearch.html', {'data':data})
+    return render(request, 'candisearch.html', {'data':data1})
 
 
 def select_candidate(request):
@@ -223,7 +268,7 @@ def edit_profile(request):
     data  = UserRegister.objects.get(user=request.user.id)
     
     if (request.method =='POST'):
-        id1 = request.POST.get('id')
+    
         username = request.POST.get('user_name')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -242,11 +287,12 @@ def edit_profile(request):
         language = request.POST.get('language')
         photo = request.POST.get('photo')
         resume = request.POST.get('resume')
-
+        # print('1111111111111111111111111111111111', id1)
+        print('1111111111111111111111111111111111', fathername, email)
         # user = User.objects.create_user(username, email, password)
         data1 = UserRegister(
-            id=id1,
-            user=user,
+            id=request.user.id,
+            # user=user,
             first_name=first_name,
             last_name=last_name,
             fathername=fathername,
@@ -264,12 +310,13 @@ def edit_profile(request):
             resume=resume
 
         )
+        print(data)
         data1.save()
 
     return render(request, 'editresume.html', {'data': data})
 
 
-def resume(request):
+def resume1(request):
     data = UserRegister.objects.get(user=request.user.id)
     return render(request, 'resume.html', {'data': data})
 
@@ -288,7 +335,7 @@ def user_register(request):
         gender = request.POST.get('gender')
         phone = request.POST.get('phone')
         qualification = request.POST.get('qualification')
-        experience = request.POST.get('experience')
+        experience = request.POST.get('exp')
         skills = request.POST.get('skills')
         certification = request.POST.get('certification')
         language = request.POST.get('language')
@@ -398,3 +445,5 @@ def editjob(request):
     return render(request, 'editjob.html', {'data':data})
 
 
+def yourpost(request):
+    return render(request, 'yourpost.html')
