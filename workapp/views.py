@@ -82,7 +82,7 @@ def listing(request):
 
 
 def company_dashboard(request):
-    return render(request, 'companydashboard.html')
+    return render(request, 'company/companydashboard.html')
 
 
 def candidate_search(request):
@@ -93,22 +93,22 @@ def candidate_search(request):
         experience1 = request.POST.get('exp')
         if (skills1 and location1 and experience1):
             data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
-            return render(request, 'candisearch.html', {'data':data})
+            return render(request, 'company/candisearch.html', {'data':data})
         
         elif (skills1 and location1):
             data = UserRegister.objects.filter(skills=skills1, location=location1)
             print(data)
-            return render(request, 'candisearch.html', {'data':data})
+            return render(request, 'company/candisearch.html', {'data':data})
         
         elif (skills1):
             data = UserRegister.objects.filter(skills=skills1)
-            return render(request, 'candisearch.html', {'data':data})
+            return render(request, 'company/candisearch.html', {'data':data})
             
-    return render(request, 'candisearch.html', {'data':data1})
+    return render(request, 'company/candisearch.html', {'data':data1})
 
 
 def select_candidate(request):
-    return render(request, 'selectcandi.html')
+    return render(request, 'company/selectcandi.html')
 
 
 def candidate_notification(request):
@@ -126,9 +126,9 @@ def candidate_notification(request):
                 # email = i.email
                 print (i.email)
                 print(request.user.username)
-        return render(request, 'companydashboard.html')
+        return render(request, 'company/companydashboard.html')
     else:
-        return render(request, 'candinoti.html')
+        return render(request, 'company/candinoti.html')
 
 
 def job_post(request):
@@ -142,9 +142,9 @@ def job_post(request):
         todo = JobPost(company_name=company_name, post_name=post_name, experience=experience, package=package, location=location, skills=skills)
         todo.save()
 
-        return render(request, 'companydashboard.html')
+        return render(request, 'company/companydashboard.html')
     else:
-        return render(request, 'jobpost.html')
+        return render(request, 'company/jobpost.html')
 
 
 def login(request):
@@ -157,9 +157,9 @@ def login(request):
             login1(request, user1)
 
             if CompanyRegister.objects.filter(user=user1):
-                return render(request, 'companydashboard.html', {'username': user_name})
+                return render(request, 'company/companydashboard.html', {'username': user_name})
             elif UserRegister.objects.filter(user=user1):
-                return render(request, 'dasboard.html', {'username': user_name})
+                return render(request, 'candidate/dasboard.html', {'username': user_name})
     else:
         return render(request, 'login.html')
 
@@ -169,11 +169,11 @@ def register(request):
 
 
 def user_dashboard(request):
-    return render(request, 'dasboard.html')
+    return render(request, 'candidate/dasboard.html')
 
 
 def applied_jobs(request):
-    return render(request, 'appliedjobs.html')
+    return render(request, 'candidate/appliedjobs.html')
 
 
 def job_notification(request):
@@ -194,9 +194,9 @@ def job_notification(request):
                 connection.sendmail('workdoorofficial@gmail.com', email,
                             ("Subject: Job_notification"+"\n\n"+"New Job Availbale \n"+ str(i.company_name)+"\n Package "+str(i.package)+"\n Location "+str(i.location)+"\n you can check it out on our website "))
 
-        return render(request, 'dasboard.html')
+        return render(request, 'candidate/dasboard.html')
     else:
-        return render(request, 'jobnoti.html')
+        return render(request, 'candidate/jobnoti.html')
 
 
 def job_search(request):
@@ -208,17 +208,17 @@ def job_search(request):
         experience1 = request.POST.get('exp')
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            return render(request, 'jobsearch.html', {'data':data})
+            return render(request, 'candidate/jobsearch.html', {'data':data})
         
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
-            return render(request, 'jobsearch.html', {'data':data})
+            return render(request, 'candidate/jobsearch.html', {'data':data})
         
         elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
-            return render(request, 'jobsearch.html', {'data':data})
+            return render(request, 'candidate/jobsearch.html', {'data':data})
 
-    return render(request, 'jobsearch.html', {'data':data1})
+    return render(request, 'candidate/jobsearch.html', {'data':data1})
 
 
 def edit_profile(request):
@@ -263,11 +263,12 @@ def edit_profile(request):
         )
         data1.save()
 
-    return render(request, 'editresume.html', {'data': data})
+    return render(request, 'candidate/editresume.html', {'data': data})
 
 
 def resume1(request, id=None):
     data = UserRegister.objects.get(pk=id)
+    print(data)
     return render(request, 'resume.html', {'data': data})
 
 
@@ -385,13 +386,14 @@ def logout(request):
 
 
 def questions(request):
-    return render(request, 'questions.html')
+    return render(request, 'candidate/questions.html')
 
 
 def editjob(request):
     data = JobPost.objects.all()
-    return render(request, 'editjob.html', {'data':data})
+    return render(request, 'company/editjob.html', {'data':data})
 
 
 def yourpost(request):
-    return render(request, 'yourpost.html')
+    return render(request, 'compan/yourpost.html')
+

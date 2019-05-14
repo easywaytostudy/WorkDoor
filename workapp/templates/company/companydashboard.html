@@ -1,0 +1,99 @@
+{% load static %}
+{% include 'header.html' %}
+<div class="jp_tittle_main_wrapper">
+        <div class="jp_tittle_img_overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_tittle_heading_wrapper">
+                        <div class="jp_tittle_heading">
+                            {% if user.is_authenticated %}
+                            <center><h2>Hello {{request.user}}</h2></center>
+                            {% endif %}
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jp_best_deal_main_wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_best_deal_heading_wrapper">
+                        <div class="jp_best_deal_heading">
+                            <h4>Dashboard</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="jp_best_deal_main_cont_wrapper">
+                        <div class="jp_best_deal_icon_sec">
+                            <i class="flaticon-magnifying-glass"></i>
+                        </div>
+                        <div class="jp_best_deal_cont_sec">
+                            <h4><a href="/company/candidate_search">Search Candidates</a></h4>
+                            <p>You can search any Candiate in which you are interested</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="jp_best_deal_main_cont_wrapper">
+                        <div class="jp_best_deal_icon_sec">
+                            <i class="flaticon-users"></i>
+                        </div>
+                        <div class="jp_best_deal_cont_sec">
+                            <h4><a href="/company/select_candidate">Selected Candiate</a></h4>
+                            <p>You can check the selected candiate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
+                        <div class="jp_best_deal_icon_sec">
+                            <i class="flaticon-shield"></i>
+                        </div>
+                        <div class="jp_best_deal_cont_sec">
+                            <h4><a href="/company/job_post">Post a Job</a></h4>
+                            <p>You can post job here according to your needs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
+                        <div class="jp_best_deal_icon_sec">
+                            <i class="flaticon-notification"></i>
+                        </div>
+                        <div class="jp_best_deal_cont_sec">
+                            <h4><a href="/company/candidate_notification">Candidate Notifications</a></h4>
+                            <p>You can get candiate notifications </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
+                        <div class="jp_best_deal_icon_sec">
+                            <i class="flaticon-people"></i>
+                        </div>
+                        <div class="jp_best_deal_cont_sec">
+                            <h4><a href="/company/edit_job"> Edit Job Post</a></h4>
+                            <p>You can create your profile and edit it as per your need.....</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <div class="jp_best_deal_main_cont_wrapper jp_best_deal_main_cont_wrapper2">
+                        <div class="jp_best_deal_icon_sec">
+                            <i class="flaticon-people"></i>
+                        </div>
+                        <div class="jp_best_deal_cont_sec">
+                            <h4><a href="/company/your_post">Your Job Post</a></h4>
+                            <p>You can check your job post here which is going to visible to candiate.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}

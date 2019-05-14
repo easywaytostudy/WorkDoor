@@ -1,0 +1,82 @@
+{% load static %}
+{% include 'header.html' %}
+    <!-- Header Wrapper End -->
+    <!-- jp Tittle Wrapper Start -->
+    <div class="jp_tittle_main_wrapper">
+        <div class="jp_tittle_img_overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_tittle_heading_wrapper">
+                        <div class="jp_tittle_heading">
+                          <center>  <h2>Post a Job</h2></center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="jp_contact_form_main_wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_contact_form_heading_wrapper">
+                        <h2>Job Details</h2>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
+                    <form method="POST">
+                        {% csrf_token %}
+
+                    <div class="jp_contact_form_box">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="jp_contact_inputs_wrapper">
+                                <i class="fa fa-user"></i><input type="text" placeholder=" Company Name*" name="company_name" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs2_wrapper">
+                                <i class="fa fa-envelope"></i><input type="text" placeholder=" Post Name*" name="post_name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs3_wrapper">
+                                <i class="fa fa-pencil-square-o"></i><input type="text" placeholder=" Package*" name="package" required>
+                            </div>
+                        </div>
+						<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs3_wrapper">
+                                <i class="fa fa-pencil-square-o"></i><input type="text" placeholder="Job Location" name="location" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs3_wrapper">
+                                <i class="fa fa-pencil-square-o"></i><input type="text" placeholder="Skills Required*" name="skills" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="jp_contact_inputs_wrapper jp_contact_inputs3_wrapper">
+                                <i class="fa fa-envelope"></i><input type="text" placeholder=" Experinece*" name="experience" required>
+                            </div>
+                        </div>
+                       
+                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="jp_contact_form_btn_wrapper ">
+                                
+                                <center> <input type="submit" value="Post Job" width="70" height="80"  style="background-color: red; color: white; margin: 30px; border: 0px; border-radius: 10px; font-size: 20px;" > </center>
+                            
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jp downlord Wrapper End -->
+    <!-- jp Newsletter Wrapper Start -->
+   {% include 'footer.html' %}
+    
