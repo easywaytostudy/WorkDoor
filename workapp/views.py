@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login as login1, logout as logout1
 from django.contrib.auth.models import User
 import smtplib, ssl
 from django.contrib import messages
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 
@@ -38,24 +38,45 @@ def about(request):
 
 
 def candidate(request):
-    data1 = UserRegister.objects.all()
+    data = UserRegister.objects.all()
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
         experience1 = request.POST.get('exp')
+        data = ''
         if (skills1 and location1 and experience1):
             data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
-            return render(request, 'candidate_listing.html', {'data':data})
         elif (skills1 and location1):
             data = UserRegister.objects.filter(skills=skills1, location=location1)
-            return render(request, 'candidate_listing.html', {'data':data})
+        elif (skills1 and experience1):
+            data = UserRegister.objects.filter(skills=skills1, experience=experience1 )
         elif (skills1):
             data = UserRegister.objects.filter(skills=skills1)
-            return render(request, 'candidate_listing.html', {'data':data})
-        # else:
-            # return render(request, 'candidate_listing.html', {'data':data})
+        elif (experience1):
+            data = UserRegister.objects.filter(skills=skills1)
 
-    return render(request, 'candidate_listing.html', {'data':data1})
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+
+        return render(request, 'candidate_listing.html', args)
+    else:
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+        return render(request, 'candidate_listing.html', args)
 
 
 def listing(request):
