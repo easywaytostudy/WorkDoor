@@ -33,7 +33,7 @@ urlpatterns = [
     path('company_register', views.company_register, name='company_register'),
     path('listing', views.listing, name='listing'),
 
-    path('candidate/dashboard', views.user_dashboard, name='dashboard'),
+    path('/dashboard', views.user_dashboard, name='dashboard'),
     path('candidate/job_notification', views.job_notification, name='jobnoti'),
     path('candidate/applied_jobs', views.applied_jobs, name='appliedjobs'),
     path('candidate/jobsearch', views.job_search, name='jobsearch'),
@@ -48,4 +48,5 @@ urlpatterns = [
     path('company/interview_questions', views.questions, name='questions'),
     path('company/edit_job', views.editjob, name='editjob'),
     path('company/your_post', views.yourpost, name='yourpost'),
+    path('apply_job/<int:job_id>', views.apply_job, name='apply_job'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

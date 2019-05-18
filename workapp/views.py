@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect
-from .models import Contact , CompanyRegister, UserRegister, JobNotifications, CandidateNotifications, JobPost
+from .models import Contact , CompanyRegister, UserRegister, JobNotifications, CandidateNotifications, JobPost, Appliedjobs
 from django.contrib.auth import authenticate, login as login1, logout as logout1
 from django.contrib.auth.models import User
 import smtplib, ssl
@@ -11,55 +11,21 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def home(request):
-    data1 = JobPost.objects.all()
-
-    if (request.method=='POST'):
-        skills1 = request.POST.get('skills')
-        location1 = request.POST.get('location')
-        experience1 = request.POST.get('exp')
-
-        if (skills1 and location1 and experience1):
-            data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            messages.add_message(request, messages.INFO,
-                                 'Thank you for your search')
-            return render(request, 'index.html', {'data':data})
-        
-        elif (skills1 and location1):
-            data = JobPost.objects.filter(skills=skills1, location=location1)
-            messages.add_message(request, messages.INFO,
-                                 'Thank you for your search')
-            return render(request, 'index.html', {'data':data})
-        
-        elif (skills1):
-            data = JobPost.objects.filter(skills=skills1)
-            messages.add_message(request, messages.INFO,
-                                 'Thank you for your search')
-            return render(request, 'index.html', {'data':data})
-
-    return render(request, 'index.html', {'data':data1})
-
-
-def about(request):
-    return render(request, 'about.html')
-
-
-def candidate(request):
-    data = UserRegister.objects.all()
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
         experience1 = request.POST.get('exp')
         data = ''
         if (skills1 and location1 and experience1):
-            data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
+            data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
         elif (skills1 and location1):
-            data = UserRegister.objects.filter(skills=skills1, location=location1)
+            data = JobPost.objects.filter(skills=skills1, location=location1)
         elif (skills1 and experience1):
-            data = UserRegister.objects.filter(skills=skills1, experience=experience1 )
+            data = JobPost.objects.filter(skills=skills1, experience=experience1)
         elif (skills1):
-            data = UserRegister.objects.filter(skills=skills1)
+            data = JobPost.objects.filter(skills=skills1)
         elif (experience1):
-            data = UserRegister.objects.filter(skills=skills1)
+            data = JobPost.objects.filter(experience=experience1)
 
         page = request.GET.get('page', 1)
         paginator = Paginator(data, 5)
@@ -73,6 +39,53 @@ def candidate(request):
 
         return render(request, 'candidate_listing.html', args)
     else:
+        data = JobPost.objects.all()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+        return render(request, 'index.html', args)
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def candidate(request):
+    if (request.method=='POST'):
+        skills1 = request.POST.get('skills')
+        location1 = request.POST.get('location')
+        experience1 = request.POST.get('exp')
+        data = ''
+        if (skills1 and location1 and experience1):
+            data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
+        elif (skills1 and location1):
+            data = UserRegister.objects.filter(skills=skills1, location=location1)
+        elif (skills1 and experience1):
+            data = UserRegister.objects.filter(skills=skills1, experience=experience1)
+        elif (skills1):
+            data = UserRegister.objects.filter(skills=skills1)
+        elif (experience1):
+            data = UserRegister.objects.filter(experience=experience1)
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+
+        return render(request, 'candidate_listing.html', args)
+    else:
+        data = UserRegister.objects.all()
         page = request.GET.get('page', 1)
         paginator = Paginator(data, 5)
         try:
@@ -86,26 +99,45 @@ def candidate(request):
 
 
 def listing(request):
-    data1 = JobPost.objects.all()
-
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
         experience1 = request.POST.get('exp')
-
+        data = ''
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            return render(request, 'listing_right.html', {'data':data})
-        
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
-            return render(request, 'listing_right.html', {'data':data})
-        
+        elif (skills1 and experience1):
+            data = JobPost.objects.filter(skills=skills1, experience=experience1)
         elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
-            return render(request, 'listing_right.html', {'data':data})
+        elif (experience1):
+            data = JobPost.objects.filter(experience=experience1)
 
-    return render(request, 'listing_right.html', {'data':data1})
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+
+        return render(request, 'candidate_listing.html', args)
+    else:
+        data = JobPost.objects.all()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+        return render(request, 'listing_right.html', args)
 
 
 def company_dashboard(request):
@@ -113,25 +145,45 @@ def company_dashboard(request):
 
 
 def candidate_search(request):
-    data1 = UserRegister.objects.all()
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
         experience1 = request.POST.get('exp')
+        data = ''
         if (skills1 and location1 and experience1):
             data = UserRegister.objects.filter(skills=skills1, location=location1, experience=experience1)
-            return render(request, 'company/candisearch.html', {'data':data})
-        
         elif (skills1 and location1):
             data = UserRegister.objects.filter(skills=skills1, location=location1)
-            print(data)
-            return render(request, 'company/candisearch.html', {'data':data})
-        
+        elif (skills1 and experience1):
+            data = UserRegister.objects.filter(skills=skills1, experience=experience1)
         elif (skills1):
             data = UserRegister.objects.filter(skills=skills1)
-            return render(request, 'company/candisearch.html', {'data':data})
-            
-    return render(request, 'company/candisearch.html', {'data':data1})
+        elif (experience1):
+            data = UserRegister.objects.filter(experience=experience1)
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+
+        return render(request, 'candidate_listing.html', args)
+    else:
+        data = UserRegister.objects.all()
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}            
+        return render(request, 'company/candisearch.html', args)
 
 
 def select_candidate(request):
@@ -227,25 +279,45 @@ def job_notification(request):
 
 
 def job_search(request):
-    data1 = JobPost.objects.all()
-
+    data = JobPost.objects.all()
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
         location1 = request.POST.get('location')
         experience1 = request.POST.get('exp')
+        data = ''
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
-            return render(request, 'candidate/jobsearch.html', {'data':data})
-        
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
-            return render(request, 'candidate/jobsearch.html', {'data':data})
-        
+        elif (skills1 and experience1):
+            data = JobPost.objects.filter(skills=skills1, experience=experience1)
         elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
-            return render(request, 'candidate/jobsearch.html', {'data':data})
+        elif (experience1):
+            data = JobPost.objects.filter(experience=experience1)
 
-    return render(request, 'candidate/jobsearch.html', {'data':data1})
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+
+        return render(request, 'candidate_listing.html', args)
+    else:
+        page = request.GET.get('page', 1)
+        paginator = Paginator(data, 5)
+        try:
+            data = paginator.page(page)
+        except PageNotAnInteger:
+            data = paginator.page(1)
+        except EmptyPage:
+            data = paginator.page(paginator.num_pages)
+        args = {'data': data}
+        return render(request, 'candidate/jobsearch.html', args)
 
 
 def edit_profile(request):
@@ -424,3 +496,12 @@ def editjob(request):
 def yourpost(request):
     return render(request, 'compan/yourpost.html')
 
+def apply_job(request, job_id):
+    user_id =  request.user.id
+    if user_id:
+        print('.................................................', job_id, user_id)
+        data = Appliedjobs(job_id=job_id, candidate_id=request.user.id)
+        data.save()
+        return redirect('listing')
+    else:
+        return redirect('login')

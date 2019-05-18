@@ -118,8 +118,8 @@ class Appliedjobs(models.Model):
     job_id = models.OneToOneField(JobPost, on_delete=True)
     candidate_id = models.OneToOneField(User, on_delete=True)
 
-    def __unicode__(self):
-        return self.job_id
+    # def __unicode__(self):
+        # return self.job_id
 
     class Meta:
         db_table = "Applied_Jobs"

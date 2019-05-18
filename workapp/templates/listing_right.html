@@ -106,7 +106,7 @@
                                                         <div class="jp_job_post_right_btn_wrapper">
                                                             <ul>
                                                                 
-                                                                <li><a href="#">Apply</a>
+                                                                <li><a href="/apply_job/{{i.id}}">Apply</a>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -122,7 +122,43 @@
                                                 </ul>
                                             </div>
                                         </div></div>{% endfor %}
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% if data.has_other_pages %}
+                            <ul class="pagination center">
+                            {% if data.has_previous %}
+                            <li><a href="?page={{ data.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                            {% endif %}
+
+                            {% if data.number|add:'-4' > 1 %}
+                            <li><a href="?page={{ data.number|add:'-5' }}">&hellip;</a></li>
+                            {% endif %}
+
+                            {% for i in data.paginator.page_range %}
+                            {% if data.number == i %}
+                            <li class="active"><a>{{ i }} <span class="sr-only">(current)</span></a></li>
+                            {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if data.paginator.num_pages > data.number|add:'4' %}
+                            <li><a href="?page={{ data.number|add:'5' }}">&hellip;</a></li>
+                            {% endif %}
+
+                            {% if data.has_next %}
+                            <li><a href="?page={{ data.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
+                    </div>
+
+
                                     </div>
+
                                 </div>
                             </div>
                             <div class="video_nav_img_wrapper">
