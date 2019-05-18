@@ -1,123 +1,145 @@
 {% load static %}
 {% include 'header.html' %}
 
-    <div class="jp_bottom_footer_Wrapper_header_img_wrapper">
-        <div class="jp_slide_img_overlay"></div>
-        <div class="jp_banner_heading_cont_wrapper">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="jp_job_heading_wrapper">
-                            <div class="jp_job_heading">
-                                <h1><span>Browse</span> Candidates</h1>
-                                <p>Find Jobs, Employment & Career Opportunities</p>
-                            </div>
+<div class="jp_bottom_footer_Wrapper_header_img_wrapper">
+    <div class="jp_slide_img_overlay"></div>
+    <div class="jp_banner_heading_cont_wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="jp_job_heading_wrapper">
+                        <div class="jp_job_heading">
+                            <h1><span>Browse</span> Candidates</h1>
+                            <p>Find Jobs, Employment & Career Opportunities</p>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <form method="POST">
-                            {% csrf_token %}
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <form method="POST">
+                        {% csrf_token %}
                         <div class="jp_header_form_wrapper">
                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <input type="text" placeholder="Skills e.g. (python, core java, php)" name="skills" required>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <div class="jp_form_location_wrapper">
-                                    
-                            <input type="text" name="location" placeholder="Location" required>
-                        
+
+                                    <input type="text" name="location" placeholder="Location" required>
+
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <div class="jp_form_exper_wrapper">
                                     <i class="fa fa-dot-circle-o first_icon"></i>
-                            <select name="exp" placeholder='experince'>
-                                <option selected="True" disabled>Experince</option>        
-								<option value="Fresher">Fresher</option>
-								<option value="1">0 - 1 Years</option>
-								<option value="2">2 - 3 Years</option>
-								<option value="3">3 - 4 Years</option>
-								<option value="more">More</option>
-							</select>
+                                    <select name="exp" placeholder='experince'>
+                                        <option selected="True" disabled>Experince</option>
+                                        <option value="Fresher">Fresher</option>
+                                        <option value="1">0 - 1 Years</option>
+                                        <option value="2">2 - 3 Years</option>
+                                        <option value="3">3 - 4 Years</option>
+                                        <option value="more">More</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                                 <div class="jp_form_btn_wrapper">
                                     <ul>
-                                <li><input type="submit" value="Search" style="background: #23c0e9; color: #ffffff; font-weight: bold; font-size: 16px;"></li>
+                                        <li><input type="submit" value="Search" style="background: #23c0e9; color: #ffffff; font-weight: bold; font-size: 16px;"></li>
                                         <!-- <li><a type="submit" ><i class="fa fa-search"></i> Search</a></li> -->
                                     </ul>
                                 </div>
-                            </div></form>
-                        </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="jp_banner_main_jobs_wrapper">
+                    <div class="jp_banner_main_jobs">
+                        <ul>
+                            <li><i class="fa fa-tags"></i> Trending Keywords :</li>
+                            <li><a href="">Python,</a></li>
+                            <li><a href="">Java,</a></li>
+                            <li><a href="">AWS</a></li>
+                            <li><a href="">IOT,</a></li>
+                            <li><a href="">PHP,</a></li>
+                            <li><a href="">call center</a></li>
+                        </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="jp_listing_sidebar_main_wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-9 col-sm-12 col-xs-12 jp_cl_right_bar">
+                <div class="row">
+                    {% for i in data %}
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="jp_banner_main_jobs_wrapper">
-                            <div class="jp_banner_main_jobs">
+
+                        <div class="jp_recent_resume_box_wrapper">
+
+                            <div class="jp_recent_resume_img_wrapper">
+                                {% if data.photo.url %}
+                                <img src="{{data.photo.url}}" style="width:80px; height:80px;">
+                                {% else %}
+                                <img src="{{data.photo}}" style="width:80px; height:80px;">
+                                {% endif %}
+
+                            </div>
+                            <div class="jp_recent_resume_cont_wrapper">
+                                <h3><a href="candidate/resume/{{i.id}}">{{i.first_name}} {{i.last_name}}</a></h3>
+                                <p><i class="fa fa-folder-open-o"></i>{{i.skills}}</p>
+                            </div>
+                            <div class="jp_recent_resume_btn_wrapper">
                                 <ul>
-                                    <li><i class="fa fa-tags"></i> Trending Keywords :</li>
-                                    <li><a href="">Python,</a></li>
-                                    <li><a href="">Java,</a></li>
-                                    <li><a href="">AWS</a></li>
-                                    <li><a href="">IOT,</a></li>
-                                    <li><a href="">PHP,</a></li>
-                                    <li><a href="">call center</a></li>
+                                    <li><a href="candidate/resume/{{i.id}}">View Profile</a></li>
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% if data.has_other_pages %}
+                            <ul class="pagination center">
+                            {% if data.has_previous %}
+                            <li><a href="?page={{ data.previous_page_number }}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+                            {% endif %}
+
+                            {% if data.number|add:'-4' > 1 %}
+                            <li><a href="?page={{ data.number|add:'-5' }}">&hellip;</a></li>
+                            {% endif %}
+
+                            {% for i in data.paginator.page_range %}
+                            {% if data.number == i %}
+                            <li class="active"><a>{{ i }} <span class="sr-only">(current)</span></a></li>
+                            {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                            {% endif %}
+                            {% endfor %}
+
+                            {% if data.paginator.num_pages > data.number|add:'4' %}
+                            <li><a href="?page={{ data.number|add:'5' }}">&hellip;</a></li>
+                            {% endif %}
+
+                            {% if data.has_next %}
+                            <li><a href="?page={{ data.next_page_number }}"><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                            {% else %}
+                            <li class="disabled"><a><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+                            {% endif %}
+                        </ul>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="jp_listing_sidebar_main_wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-9 col-sm-12 col-xs-12 jp_cl_right_bar">
-                    <div class="row">
-                        {% for i in data %}
-                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							
-                            <div class="jp_recent_resume_box_wrapper">
-
-								<div class="jp_recent_resume_img_wrapper">
-                                    {% if data.photo.url %}
-                                        <img src="{{data.photo.url}}" style="width:80px; height:80px;">
-                                    {% else %}
-                                        <img src="{{data.photo}}" style="width:80px; height:80px;">
-                                    {% endif %}
-
-								</div>
-								<div class="jp_recent_resume_cont_wrapper">
-									<h3><a href="candidate/resume/{{i.id}}">{{i.first_name}} {{i.last_name}}</a></h3>
-									<p><i class="fa fa-folder-open-o"></i>{{i.skills}}</p>
-								</div>
-								<div class="jp_recent_resume_btn_wrapper">
-									<ul>
-										<li><a href="candidate/resume/{{i.id}}">View Profile</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-                        {% endfor %}
-                       						
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 visible-sm visible-xs">
-                            <div class="pager_wrapper gc_blog_pagination">
-                                <ul class="pagination">
-                                    <li><a href="#">Priv.</a></li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li class="hidden-xs"><a href="#">4</a></li>
-                                    <li><a href="#">Next</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 
 {% include 'footer.html' %}
