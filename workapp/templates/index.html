@@ -253,6 +253,13 @@
         </div>
     </div>
 </div>
+<div>{% if messages %}
+                     <center> <p class="alert alert-info" >{%for message in messages%}
+                     {%if forloop.first%}
+                 {{message}}
+             {%endif%}
+         {%endfor%}</p>
+               {% endif %}</center></div>
 <!-- Header Wrapper End -->
 <div class="jp_first_sidebar_main_wrapper">
     <div class="container">

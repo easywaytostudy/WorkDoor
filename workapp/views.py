@@ -20,14 +20,20 @@ def home(request):
 
         if (skills1 and location1 and experience1):
             data = JobPost.objects.filter(skills=skills1, location=location1, experience=experience1)
+            messages.add_message(request, messages.INFO,
+                                 'Thank you for your search')
             return render(request, 'index.html', {'data':data})
         
         elif (skills1 and location1):
             data = JobPost.objects.filter(skills=skills1, location=location1)
+            messages.add_message(request, messages.INFO,
+                                 'Thank you for your search')
             return render(request, 'index.html', {'data':data})
         
         elif (skills1):
             data = JobPost.objects.filter(skills=skills1)
+            messages.add_message(request, messages.INFO,
+                                 'Thank you for your search')
             return render(request, 'index.html', {'data':data})
 
     return render(request, 'index.html', {'data':data1})
