@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 import smtplib, ssl
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -139,11 +140,11 @@ def listing(request):
         args = {'data': data}
         return render(request, 'listing_right.html', args)
 
-
+@login_required
 def company_dashboard(request):
     return render(request, 'company/companydashboard.html')
 
-
+@login_required
 def candidate_search(request):
     if (request.method=='POST'):
         skills1 = request.POST.get('skills')
@@ -185,11 +186,11 @@ def candidate_search(request):
         args = {'data': data}            
         return render(request, 'company/candisearch.html', args)
 
-
+@login_required
 def select_candidate(request):
     return render(request, 'company/selectcandi.html')
 
-
+@login_required
 def candidate_notification(request):
     if(request.method == 'POST'):
         name = request.POST.get('name')
@@ -209,7 +210,7 @@ def candidate_notification(request):
     else:
         return render(request, 'company/candinoti.html')
 
-
+@login_required
 def job_post(request):
     if(request.method == 'POST'):
         company_name = request.POST.get('company_name')
@@ -246,15 +247,18 @@ def login(request):
 def register(request):
     return render(request, 'register.html')
 
-
+@login_required
 def user_dashboard(request):
     return render(request, 'candidate/dasboard.html')
 
+@login_required
+def applied_jobs(request, id=None):
+    data = Appliedjobs.objects.filter(pk=id)
+    print("11111111111111111111111111111111111111111", data)
 
-def applied_jobs(request):
-    return render(request, 'candidate/appliedjobs.html')
+    return render(request, 'candidate/appliedjobs.html', {'data': data})
 
-
+@login_required
 def job_notification(request):
     if(request.method == 'POST'):
         name = request.POST.get('name')
@@ -277,7 +281,7 @@ def job_notification(request):
     else:
         return render(request, 'candidate/jobnoti.html')
 
-
+@login_required
 def job_search(request):
     data = JobPost.objects.all()
     if (request.method=='POST'):
@@ -319,7 +323,7 @@ def job_search(request):
         args = {'data': data}
         return render(request, 'candidate/jobsearch.html', args)
 
-
+@login_required
 def edit_profile(request):
     data  = UserRegister.objects.get(user=request.user.id)
     if (request.method =='POST'):
@@ -364,7 +368,7 @@ def edit_profile(request):
 
     return render(request, 'candidate/editresume.html', {'data': data})
 
-
+@login_required
 def resume1(request, id=None):
     data = UserRegister.objects.get(pk=id)
     print(data)
@@ -481,27 +485,33 @@ def contact(request):
 
 def logout(request):
     logout1(request)
-    return redirect('login')
+    return redirect('accounts/login/')
 
-
+@login_required
 def questions(request):
     return render(request, 'candidate/questions.html')
 
-
+@login_required
 def editjob(request):
     data = JobPost.objects.all()
     return render(request, 'company/editjob.html', {'data':data})
 
-
+@login_required
 def yourpost(request):
-    return render(request, 'compan/yourpost.html')
+    return render(request, 'company/yourpost.html')
 
 def apply_job(request, job_id):
     user_id =  request.user.id
     if user_id:
-        print('.................................................', job_id, user_id)
-        data = Appliedjobs(job_id=job_id, candidate_id=request.user.id)
-        data.save()
+        job_obj = JobPost.objects.get(id=job_id)
+        user_obj = User.objects.get(id=request.user.id)
+        Appliedjobs.objects.create(job_id= job_obj, candidate_id= user_obj)
         return redirect('listing')
     else:
-        return redirect('login')
+        return redirect('accounts/login/')
+
+
+# def candidate_list(request, user_id):
+#     company_id = request.user.id
+#     if company_id:
+

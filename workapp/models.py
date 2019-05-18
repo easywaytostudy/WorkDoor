@@ -118,23 +118,22 @@ class Appliedjobs(models.Model):
     job_id = models.OneToOneField(JobPost, on_delete=True)
     candidate_id = models.OneToOneField(User, on_delete=True)
 
-    # def __unicode__(self):
-        # return self.job_id
+    def __unicode__(self):
+        return self.job_id
 
     class Meta:
         db_table = "Applied_Jobs"
         verbose_name = "Applied Jobs"
 
 
-# class SelectedCandidate(models.Model):
-    
-#     user_id = models.OneToOneField(User, on_delete=True)
-#     company_id = models.OneToOneField(User, on_delete=True)
+class SelectCandidate(models.Model):
+    user_id = models.OneToOneField(UserRegister, on_delete=True)
+    company_id = models.OneToOneField(CompanyRegister, on_delete=True)
 
-#     def __unicode__(self):
-#         return self.candidate_id
+    def __unicode__(self):
+        return self.candidate_id
 
-#     class Meta:
-#         db_table = "Selected_Candidate"
-#         verbose_name = "Selected Candidate"
+    class Meta:
+        db_table = "Selected_Candidate"
+        verbose_name = "Selected Candidate"
 
